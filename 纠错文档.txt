@@ -1,0 +1,4 @@
+a标签 可以访问 servlet
+请求转发
+和重定向也可以，只是重定向会丢失数据，请求转发在一次请求中则不会丢失数据
+el 取对象 调get set 只需访问对象的属性 格式${requsetScope.user.name} el会自动将属性首字母大写，形成相应的get set
