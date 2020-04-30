@@ -14,7 +14,7 @@
 		//if(!(name.length>=2 & name.length<=4)){
 		//	alert("名字必须在2-4之间");
 			//return false;
-		}
+		//}
 		//if(){};
 		//if(){};
 		//if(){};
@@ -29,7 +29,7 @@
 请输入您的等级:<input id="grade" name="ugrade"><br>
 <input type="submit" value="注册">
 </form>
-<a href="/jiaorongjinVSD/welcome.jsp"><button>返回</button></a>
+<a href="/jiaorongjinVSD/QueryAllUserServlet"><button>返回</button></a>
 
 <h2>ajax异步刷新</h2>
 查询用户：<input id="checkUser"><br>

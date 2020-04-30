@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jiaorongjinVSD.entity.User;
-import jiaorongjinVSD.service.UserService;
+import jiaorongjinVSD.service.IUserService;
+import jiaorongjinVSD.service.Impl.UserServiceImpl;
 
 /**
  * Servlet implementation class UpdateUserServlet
@@ -42,7 +43,7 @@ public class UpdateUserServlet extends HttpServlet {
 		user.setName(name);
 		user.setPwd(pwd);
 		user.setGrade(grade);
-		UserService us = new UserService();
+		IUserService us = new UserServiceImpl();
 		us.updateUserById(id, user);
 		}
 

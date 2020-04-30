@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jiaorongjinVSD.entity.User;
-import jiaorongjinVSD.service.UserService;
+import jiaorongjinVSD.service.IUserService;
+import jiaorongjinVSD.service.Impl.UserServiceImpl;
 
 /**
  * Servlet implementation class QueryUserByIdServletTest
@@ -36,7 +37,7 @@ public class QueryUserByIdServletTest extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("html;charset=utf-8");
 		int id=Integer.parseInt(request.getParameter("id"));
-		UserService us = new UserService();
+		IUserService us = new UserServiceImpl();
 		User user = new User();
 		user=us.queryUserById(id);
 		PrintWriter out = response.getWriter();

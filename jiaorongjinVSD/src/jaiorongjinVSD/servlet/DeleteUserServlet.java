@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jiaorongjinVSD.service.UserService;
+import jiaorongjinVSD.service.IUserService;
+import jiaorongjinVSD.service.Impl.UserServiceImpl;
 
 /**
  * Servlet implementation class DeleteUserServlet
@@ -34,9 +35,8 @@ public class DeleteUserServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("html;charset=utf-8");
-		UserService us = new UserService();
+		IUserService us = new UserServiceImpl();
 		String sid = request.getParameter("id");
-		System.out.println("sid="+sid);
 		int id =Integer.parseInt(sid);
 		boolean b= us.deleteUserById(id);
 		if(b) {

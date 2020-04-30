@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jiaorongjinVSD.entity.User;
-import jiaorongjinVSD.service.UserService;
+import jiaorongjinVSD.service.IUserService;
+import jiaorongjinVSD.service.Impl.UserServiceImpl;
 
 /**
  * Servlet implementation class QueryAllUserServlet
@@ -35,7 +36,7 @@ public class QueryAllUserServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("html;charset=utf-8");
-		UserService us = new UserService();
+		IUserService us = new UserServiceImpl();
 		List<User> list = us.queryAllUsers();
 		if(!list.equals(null)) {
 			request.setAttribute("list", list);
@@ -45,7 +46,7 @@ public class QueryAllUserServlet extends HttpServlet {
 			request.getRequestDispatcher("welcome.jsp").forward(request, response);
 		}else{
 			request.setAttribute("error", "existerror");
-			System.out.println("list==null");
+			request.getRequestDispatcher("QueryUserByIdServletTest").forward(request, response);
 		}
 		
 		

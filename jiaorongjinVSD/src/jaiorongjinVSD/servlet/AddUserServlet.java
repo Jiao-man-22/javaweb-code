@@ -2,15 +2,14 @@ package jaiorongjinVSD.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import jiaorongjinVSD.entity.User;
-import jiaorongjinVSD.service.UserService;
+import jiaorongjinVSD.service.IUserService;
+import jiaorongjinVSD.service.Impl.UserServiceImpl;
 
 /**
  * Servlet implementation class AddUserServlet
@@ -42,7 +41,8 @@ public class AddUserServlet extends HttpServlet {
 		user.setName(name);
 		user.setPwd(pwd);
 		user.setGrade(grade);
-		UserService us=new UserService();
+		//上层依赖下层 使用多态 接口  =new实现类
+		IUserService us=new UserServiceImpl();
 		boolean addUser = us.addUser(user);
 		//新增成功
 		if(addUser) {

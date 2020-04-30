@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jiaorongjinVSD.entity.User;
-import jiaorongjinVSD.service.UserService;
+import jiaorongjinVSD.service.IUserService;
+import jiaorongjinVSD.service.Impl.UserServiceImpl;
 
 /**
  * Servlet implementation class LoginClServlet
@@ -41,7 +42,7 @@ public class LoginClServlet extends HttpServlet {
 		User user = new User();
 		user.setName(name);
 		user.setPwd(pwd);
-		UserService us = new UserService();
+		IUserService us = new UserServiceImpl();
 		flag = us.checkUser(user);
 		if (flag) {
 			request.getRequestDispatcher("welcome.jsp").forward(request, response);
