@@ -1,0 +1,14 @@
+过滤器拦截请求拦截响应
+将普通类变成过滤器 继承，实现，注解,
+init(),dofilter(),
+web.xml进行配置
+<filter>
+<filter-name></filter-name>
+<filter-class>全路径</filter-class>
+</filter>
+<filter-mapping>
+<servlet-name></servlet-name>
+<url-pattern>/路径</url-pattern>
+<filter-mapping>
+dofilter()放行请求
+filter
