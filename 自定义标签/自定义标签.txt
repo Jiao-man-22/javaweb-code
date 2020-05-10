@@ -1,0 +1,56 @@
+自定义标签
+标签的顶级接口JspTag
+传统接口 Tag  主要方法 doStartTag()
+简单接口 SimpleTag 主要方法 doTag()
+a.先编写标签处理类
+传统接口 Tag  主要方法 doStartTag()
+返回值0/1   EVAL_BODY_INCLUDE= 1标签体会被执行
+		SKIP_PAGE=0   标签体不会被执行
+
+		   doEndTag();
+ 返回值5 SKIP_PAGE=5    后面jsp页面内容不会被执行
+ 返回值 6	 SKIP_PAGE=6   后面的jsp页面内容继续执行
+Tag接口中的方法执行顺序
+Jsp-->servlet 遇到jsp标签会依次执行setoageContext(),setParent()
+doStartTag() doEndTag() realease(),进行解析
+如果有循环 就实现IteratorTag()或者他的子类
+doAfterBody()
+返回值 执行EVAL_BODY_AGAIN
+	      跳过 SKIP_BODY
+
+简单接口 SimpleTag 主要方法 doTag()
+jsp编译阶段遇到自定义标签就会交给doStartTag/doTag()
+b.编写标签描述符
+<body-content>:
+empty:标签体为空
+JSP:任意JSP元素 要大写
+scriptless:小脚本  除了scriptlet外可以是任何jsp元素
+tagdependent: 表示 对 标签体内容不进行解析  <%%><%=%><%!    %> ${}
+tld文件
+//标签库头文件
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+    version="2.0">
+//标签库描述
+    <description>A tag library exercising SimpleTag handlers.</description>
+    <tlib-version>1.0</tlib-version>
+//标签库简称
+    <short-name>SimpleTagLibrary</short-name>
+//定位标签库uri
+    <uri>http://tomcat.apache.org/jsp2-example-taglib</uri>
+//标签
+  <tag>
+        <description>Outputs Hello, World</description>
+        <name>helloWorld</name>
+        <tag-class>jsp2.examples.simpletag.HelloWorldSimpleTag</tag-class>
+        <body-content>empty</body-content>
+   </tag>
+//绑定属性
+ <attribute>
+            <name>fragment2</name>
+            <required>true</required>
+            <fragment>true</fragment>
+        </attribute>
+c.导入并使用 
+tld不能放在在web-INF/lib   
