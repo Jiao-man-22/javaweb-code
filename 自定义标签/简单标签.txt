@@ -1,0 +1,11 @@
+简单方式
+SimpleTag
+将doStartTag() doEndTag(）等全都简化成 一个doTag()
+doTag()：传统方式对数据进行修改，显示时，使用的缓冲区 
+而简单方式使用的时流的概念
+JspFragmente类:代表每一块jsp元素 不包含scriptlet
+并且使用invoke(Writer varl)每调用一次invoke()会执行一次标签体
+条件选择
+当某一个条件满足时，在执行某个标签
+传统标签：如果条件不满足，让doStartTag()的返回值为0
+简单标签 ：如果条件不满足时，不调用invoke()
