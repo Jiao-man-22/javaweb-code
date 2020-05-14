@@ -1,0 +1,68 @@
+实现分页数据的mysql
+select * from userdata limit ?,?
+第一个表示查询的起始位置
+第二个表示查询的个数
+**查询条件不支持运算
+查询数据算法
+pageSize*(pageNow-1)
+//得到每页显示数据
+	@Override
+	public List getPageRow(int pageSize,int pageNow) {
+		// TODO Auto-generated method stub
+		//查询前几条数据 
+		int pageNow_1=(pageNow-1)*pageSize;
+		String sql="select * from userdata limit ?,?";
+		//select top pageSize * from users where userId not in(select top (pageSize*(pageNow-1)) userId from user
+		Object[] attributr= {pageNow_1,pageSize};
+		 rs = DBUtil.queryExecute(sql, attributr);
+		  List arrayList=new ArrayList();
+		try {
+			while(rs.next()) {
+				User u = new User();
+				u.setName(rs.getString("uname"));
+				u.setPwd(rs.getString("upwd"));
+				u.setGrade(rs.getInt("ugrade"));
+				u.setId(rs.getInt("id"));
+				arrayList.add(u);	
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return arrayList;
+	}
+	//得到总页数
+	@Override
+	public int getCountPage(int pagesize) {
+		// TODO Auto-generated method stub
+		String sql="select count(*) from userdata";
+		int allRow=0;
+		rs=DBUtil.queryExecute(sql, null);
+		try {
+			if(rs!=null) {
+				while(rs.next()) {
+					allRow=rs.getInt(1);
+				}
+				if(allRow%pagesize==0) {
+					countPage=allRow/pagesize;
+				}else if(allRow%pagesize!=0) {
+					countPage=allRow/pagesize+1;
+				}
+			}else {
+				System.out.println("rs返回值为null");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return countPage;
+	}
+	//设置当前页
+	@Override
+	public int setCurrentPage(int pagNow) {
+		// TODO Auto-generated method stub
+		this.pageNow=pagNow+1;
+		return pageNow;
+	}
